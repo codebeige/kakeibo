@@ -1,6 +1,6 @@
-(ns kakeibo.core-test
+(ns kakeibo.web-test
   (:require [clojure.test :refer :all]
-            [kakeibo.core :refer :all]))
+            [kakeibo.web :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."

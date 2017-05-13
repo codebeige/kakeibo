@@ -3,20 +3,22 @@
 
 (set-env! :resource-paths #{"resources" "src"}
           :source-paths   #{"test"}
-          :dependencies   '[[org.clojure/clojure "RELEASE"]
-                            [adzerk/boot-test "RELEASE" :scope "test"]])
+          :dependencies   '[[org.clojure/clojure "1.9.0-alpha16"]
+                            [adzerk/boot-test "1.2.0" :scope "test"]])
 
 (task-options!
- aot {:namespace   #{'kakeibo.core}}
+ aot {:namespace   #{'kakeibo.web}}
  pom {:project     project
       :version     version
-      :description "FIXME: write description"
-      :url         "http://example/FIXME"
-      :scm         {:url "https://github.com/yourname/kakeibo"}
-      :license     {"Eclipse Public License"
-                    "http://www.eclipse.org/legal/epl-v10.html"}}
- jar {:main        'kakeibo.core
+      :description "Manage shared budgets online."
+      :url         "https://github.com/codebeige/kakeibo"
+      :scm         {:url "https://github.com/codebeige/kakeibo"}
+      :license     {"MIT"
+                    "https://opensource.org/licenses/MIT"}}
+ jar {:main        'kakeibo.web
       :file        (str "kakeibo-" version "-standalone.jar")})
+
+(require '[adzerk.boot-test :refer [test]])
 
 (deftask build
   "Build the project locally as a JAR."
@@ -27,7 +29,6 @@
 (deftask run
   "Run the project."
   [a args ARG [str] "the arguments for the application."]
-  (require '[kakeibo.core :as app])
-  (apply (resolve 'app/-main) args))
-
-(require '[adzerk.boot-test :refer [test]])
+  (require '[kakeibo.web :as web])
+  (with-pass-thru _
+    (apply (resolve 'web/-main) args)))

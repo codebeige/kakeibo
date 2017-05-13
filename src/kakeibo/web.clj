@@ -1,4 +1,4 @@
-(ns kakeibo.core
+(ns kakeibo.web
   (:gen-class))
 
 (defn -main
