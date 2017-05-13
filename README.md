@@ -4,21 +4,41 @@ Manage shared budgets online.
 
 ## Getting started
 
-Run the project directly:
+### Prerequisites
 
-    boot run
+[Docker] and [Docker Compose] have to be available on your system. For detailed
+[installation instructions] please refer to the [Docker Documentation].
 
-Run the project's tests (they'll fail until you edit them):
+[Docker]: https://www.docker.com
+[Docker Compose]: https://docs.docker.com/compose/overview/
+[installation instructions]: https://docs.docker.com/engine/installation/
+[Docker Documentation]: https://docs.docker.com
 
-    boot test
+### Development
+
+Build and run a development container linked to your local project directory:
+
+```sh
+docker-compose up
+```
+
+Run the project's tests:
+
+```sh
+docker-compose run --rm dev test
+```
 
 Build an uberjar from the project:
 
-    boot build
+```sh
+docker-compose run --rm dev build
+```
 
 Run the uberjar:
 
-    java -jar target/kakeibo-0.1.0-SNAPSHOT-standalone.jar
+```sh
+docker-compose run --rm dev java -jar target/kakeibo-0.1.0-SNAPSHOT-standalone.jar
+```
 
 ---
 Copyright © 2017 Tibor Claassen. Distributed under the MIT License.
