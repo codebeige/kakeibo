@@ -1,0 +1,7 @@
+version: "3.0"
+
+services:
+  boot:
+    ports:
+      - "7888:7888"
+    command: dev

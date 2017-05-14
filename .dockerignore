@@ -1,0 +1,7 @@
+.git
+.gitignore
+Dockerfile
+docker-compose.yml
+docker-compose.override.yml
+README.md
+CHANGELOG.md

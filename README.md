@@ -16,28 +16,33 @@ Manage shared budgets online.
 
 ### Development
 
-Build and run a development container linked to your local project directory:
+Build and run the interactive development environment linked to the local
+project directory:
 
 ```sh
 docker-compose up
 ```
 
+### Testing
+
 Run the project's tests:
 
 ```sh
-docker-compose run --rm dev test
+docker-compose run --rm boot test
 ```
+
+## Deployment
 
 Build an uberjar from the project:
 
 ```sh
-docker-compose run --rm dev build
+docker-compose run --rm boot build
 ```
 
 Run the uberjar:
 
 ```sh
-docker-compose run --rm dev java -jar target/kakeibo-0.1.0-SNAPSHOT-standalone.jar
+docker-compose run --rm --entrypoint java boot -jar target/kakeibo-0.1.0-SNAPSHOT-standalone.jar
 ```
 
 ---

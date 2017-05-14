@@ -1,12 +1,14 @@
 version: "3.0"
 
 services:
-  dev:
-    image: kakeibo:dev
+  boot:
+    image: kakeibo:boot
     build: ./
     volumes:
       - m2:/root/.m2/
       - ./:/usr/local/kakeibo/
+    ports:
+      - "3000:80"
 
 volumes:
   m2:
