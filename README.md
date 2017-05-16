@@ -33,16 +33,16 @@ docker-compose run --rm boot test
 
 ## Deployment
 
-Build an uberjar from the project:
+First build an uberjar:
 
 ```sh
 docker-compose run --rm boot build
 ```
 
-Run the uberjar:
+Then rebuild and restart the production system:
 
 ```sh
-docker-compose run --rm --entrypoint java boot -jar target/kakeibo-0.1.0-SNAPSHOT-standalone.jar
+docker-compose -f deploy/docker-compose.yml up --build --force-recreate
 ```
 
 ---

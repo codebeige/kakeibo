@@ -19,7 +19,7 @@
          :scm         {:url "https://github.com/codebeige/kakeibo"}
          :license     {"MIT" "https://opensource.org/licenses/MIT"}}
  jar    {:main        'kakeibo.web
-         :file        (str "kakeibo-" version "-standalone.jar")}
+         :file        "kakeibo-web.jar"}
  target {:dir #{"target"}})
 
 (require '[adzerk.boot-test :refer [test]]
@@ -40,6 +40,7 @@
    (pom)
    (uber)
    (jar)
+   (sift :include #{#"\.jar$"})
    (target)))
 
 (deftask dev
