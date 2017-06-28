@@ -1,8 +1,8 @@
 version: "3.1"
 
 services:
-  web:
+  service:
+    image: kakeibo:service
     build:
       context: ../
-      dockerfile: deploy/web/Dockerfile
-    image: kakeibo:web
+      dockerfile: deploy/service/Dockerfile

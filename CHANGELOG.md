@@ -7,6 +7,7 @@ change log follows the conventions of [keepachangelog.com].
 - Build and run web service
 - Set up development environment with [Docker]
 - Prepare test setup
+- Start web server
 
 [keepachangelog.com]: http://keepachangelog.com/
 [Docker]: https://www.docker.com
