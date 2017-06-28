@@ -1,9 +1,9 @@
 (def project 'kakeibo)
 (def version "0.1.0-SNAPSHOT")
 
-(set-env! :resource-paths #{"resources" "src"}
+(set-env! :resource-paths #{"src" "resources"}
           :source-paths   #{"test"}
-          :dependencies   '[[org.clojure/clojure "1.9.0-alpha16"]
+          :dependencies   '[[org.clojure/clojure "1.9.0-alpha17"]
 
                             [adzerk/boot-test      "1.2.0" :scope "test"]
                             [samestep/boot-refresh "0.1.0" :scope "test"]]
