@@ -5,13 +5,13 @@
 (def routes
   #{["/" :get (fn [_] {:status 200, :body "Hello, Kakeibo!"}) :route-name :hello]})
 
-(def options
+(defn options [{:keys [join?]}]
   #::http{:type   :jetty
           :port   80
-          :join?  true
+          :join?  join?
           :routes (route/expand-routes routes)})
 
-(def component
-  {:this  (http/create-server options)
+(defn component [env]
+  {:this  (-> env options http/create-server)
    :start (fn [this _] (http/start this))
    :stop  http/stop})

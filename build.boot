@@ -2,7 +2,7 @@
 (def version "0.1.0-SNAPSHOT")
 
 (set-env! :resource-paths #{"src" "resources"}
-          :source-paths   #{"test"}
+          :source-paths   #{"test" "dev"}
           :dependencies   '[[org.clojure/clojure "1.9.0-alpha17"]
                             [org.clojure/core.async "0.3.443"]
 
@@ -12,9 +12,14 @@
                             [org.slf4j/slf4j-simple       "1.7.25"]
 
                             [adzerk/boot-test      "1.2.0" :scope "test"]
+                            [codebeige/boot-reset  "0.1.3" :scope "test"]
                             [samestep/boot-refresh "0.1.0" :scope "test"]]
           :exclusions     '[org.clojure/clojure
                             org.clojure/core.async])
+
+(require '[adzerk.boot-test :refer [test]]
+         '[codebeige.boot-reset :refer [reset]]
+         '[samestep.boot-refresh :refer [refresh]])
 
 (task-options!
  aot    {:namespace   #{'kakeibo.service}}
@@ -27,10 +32,9 @@
          :scm         {:url "https://github.com/codebeige/kakeibo"}
          :license     {"MIT" "https://opensource.org/licenses/MIT"}}
  repl   {:bind "0.0.0.0"}
+ reset  {:start 'kakeibo.dev/start
+         :stop  'kakeibo.dev/stop}
  target {:dir #{"target"}})
-
-(require '[adzerk.boot-test :refer [test]]
-         '[samestep.boot-refresh :refer [refresh]])
 
 (deftask run
   "Run the project."
@@ -56,4 +60,5 @@
   (comp
    (repl :server true :port 7888)
    (watch)
+   (reset)
    (refresh)))
