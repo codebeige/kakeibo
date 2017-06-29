@@ -4,4 +4,5 @@ services:
   boot:
     ports:
       - "7888:7888"
+      - "3000:3000"
     command: dev

@@ -4,7 +4,8 @@
   (:gen-class))
 
 (def env
-  {:server {:join? true}})
+  {:server {:port  80
+            :join? true}})
 
 (defn system [{:keys [server]}]
   {:server (server/component server)})
