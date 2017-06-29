@@ -11,20 +11,23 @@
                             [net.readmarks/compost        "0.2.0"]
                             [org.slf4j/slf4j-simple       "1.7.25"]
 
-                            [adzerk/boot-test      "1.2.0" :scope "test"]
-                            [codebeige/boot-reset  "0.1.3" :scope "test"]
-                            [samestep/boot-refresh "0.1.0" :scope "test"]]
+                            [adzerk/boot-test      "1.2.0"           :scope "test"]
+                            [cider/cider-nrepl     "0.15.0-SNAPSHOT" :scope "test"]
+                            [codebeige/boot-reset  "0.1.3"           :scope "test"]
+                            [samestep/boot-refresh "0.1.0"           :scope "test"]]
           :exclusions     '[org.clojure/clojure
                             org.clojure/core.async])
 
 (require '[adzerk.boot-test :refer [test]]
+         '[cider.nrepl :refer [cider-middleware]]
+         '[cider.tasks :refer [add-middleware]]
          '[codebeige.boot-reset :refer [reset]]
          '[samestep.boot-refresh :refer [refresh]])
 
 (task-options!
- aot    {:namespace   #{'kakeibo.service}}
- jar    {:main        'kakeibo.service
-         :file        "kakeibo-service.jar"}
+ aot    {:namespace #{'kakeibo.service}}
+ jar    {:main 'kakeibo.service
+         :file "kakeibo-service.jar"}
  pom    {:project     project
          :version     version
          :description "Manage shared budgets online."
@@ -58,6 +61,7 @@
   "Start up interactive development environment."
   []
   (comp
+   (add-middleware :middleware cider-middleware)
    (repl :server true :port 7888)
    (watch)
    (reset)
