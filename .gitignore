@@ -1,4 +1,5 @@
-/target
+/builds
+/logs
 /classes
 /checkouts
 pom.xml

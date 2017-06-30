@@ -1,8 +1,8 @@
 (ns kakeibo.e2e-test
   (:require [clojure.test :refer :all]
-            [kakeibo.test :as test]))
+            [kakeibo.fixtures :as fixtures]))
 
-(use-fixtures :once test/with-system)
+(use-fixtures :once (fixtures/with-log-level :error) fixtures/with-system)
 
 (deftest test-system
-  (is (= (get-in test/*system* [:server :status]) :started)))
+  (is (= (get-in fixtures/*system* [:server :status]) :started)))

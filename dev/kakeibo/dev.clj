@@ -1,5 +1,6 @@
 (ns kakeibo.dev
-  (:require [kakeibo.service :as service]))
+  (:require [kakeibo.service :as service]
+            [net.readmarks.compost :as compost]))
 
 (defonce system nil)
 
@@ -10,10 +11,11 @@
 (defn start []
   (alter-var-root #'system (fn [_] (->> env
                                         (merge-with merge service/env)
-                                        service/start))))
+                                        service/system
+                                        compost/start))))
 
 (defn stop []
-  (alter-var-root #'system (fn [s] (some-> s service/stop))))
+  (alter-var-root #'system (fn [s] (some-> s compost/stop))))
 
 (defn restart []
   (stop)
