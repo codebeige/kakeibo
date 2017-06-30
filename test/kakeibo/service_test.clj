@@ -1,7 +1,6 @@
 (ns kakeibo.service-test
   (:require [clojure.test :refer :all]
-            [kakeibo.service :refer :all]))
+            [kakeibo.service :as service]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest env
+  (is (true? (get-in service/env [:server :join?]))))

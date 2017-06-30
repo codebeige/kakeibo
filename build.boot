@@ -14,6 +14,7 @@
                             [adzerk/boot-test      "1.2.0"           :scope "test"]
                             [cider/cider-nrepl     "0.15.0-SNAPSHOT" :scope "test"]
                             [codebeige/boot-reset  "0.1.3"           :scope "test"]
+                            [metosin/boot-alt-test "0.3.2"           :scope "test"]
                             [samestep/boot-refresh "0.1.0"           :scope "test"]]
           :exclusions     '[org.clojure/clojure
                             org.clojure/core.async])
@@ -22,22 +23,24 @@
          '[cider.nrepl :refer [cider-middleware]]
          '[cider.tasks :refer [add-middleware]]
          '[codebeige.boot-reset :refer [reset]]
+         '[metosin.boot-alt-test :refer [alt-test]]
          '[samestep.boot-refresh :refer [refresh]])
 
 (task-options!
- aot    {:namespace #{'kakeibo.service}}
- jar    {:main 'kakeibo.service
-         :file "kakeibo-service.jar"}
- pom    {:project     project
-         :version     version
-         :description "Manage shared budgets online."
-         :url         "https://github.com/codebeige/kakeibo"
-         :scm         {:url "https://github.com/codebeige/kakeibo"}
-         :license     {"MIT" "https://opensource.org/licenses/MIT"}}
- repl   {:bind "0.0.0.0"}
- reset  {:start 'kakeibo.dev/start
-         :stop  'kakeibo.dev/stop}
- target {:dir #{"target"}})
+ alt-test {:report 'eftest.report.pretty/report}
+ aot      {:namespace #{'kakeibo.service}}
+ jar      {:main 'kakeibo.service
+           :file "kakeibo-service.jar"}
+ pom      {:project     project
+           :version     version
+           :description "Manage shared budgets online."
+           :url         "https://github.com/codebeige/kakeibo"
+           :scm         {:url "https://github.com/codebeige/kakeibo"}
+           :license     {"MIT" "https://opensource.org/licenses/MIT"}}
+ repl     {:bind "0.0.0.0"}
+ reset    {:start 'kakeibo.dev/start
+           :stop  'kakeibo.dev/stop}
+ target   {:dir #{"target"}})
 
 (deftask run
   "Run the project."
@@ -66,3 +69,10 @@
    (watch)
    (reset)
    (refresh)))
+
+(deftask autotest
+  "Automatically run related tests on file changes."
+  []
+  (comp
+   (watch)
+   (alt-test)))

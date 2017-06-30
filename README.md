@@ -31,6 +31,12 @@ Run the project's tests:
 docker-compose run --rm boot test
 ```
 
+Automatically run related tests on file changes:
+
+```sh
+docker-compose run --rm boot autotest
+```
+
 ## Deployment
 
 First build an uberjar:
