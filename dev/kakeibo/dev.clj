@@ -1,21 +1,18 @@
 (ns kakeibo.dev
-  (:require [kakeibo.service :as service]
+  (:require [kakeibo.system.server :as server]
             [net.readmarks.compost :as compost]))
 
-(defonce system nil)
+(defonce current-system nil)
 
-(def env
-  {:server {:port  3000
-            :join? false}})
+(def system
+  {:server (server/component {:port 3000 :join? false})})
+
 
 (defn start []
-  (alter-var-root #'system (fn [_] (->> env
-                                        (merge-with merge service/env)
-                                        service/system
-                                        compost/start))))
+  (alter-var-root #'current-system (fn [_] (compost/start system))))
 
 (defn stop []
-  (alter-var-root #'system (fn [s] (some-> s compost/stop))))
+  (alter-var-root #'current-system (fn [s] (some-> s compost/stop))))
 
 (defn restart []
   (stop)

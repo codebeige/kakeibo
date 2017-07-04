@@ -2,7 +2,19 @@ version: "3.1"
 
 services:
   boot:
+    networks:
+      - test
     ports:
       - "7888:7888"
       - "3000:3000"
     command: dev
+
+  firefox:
+    image: selenium/standalone-firefox-debug
+    networks:
+      - test
+    ports:
+      - "5900:5900"
+
+networks:
+  test:

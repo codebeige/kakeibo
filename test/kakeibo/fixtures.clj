@@ -1,20 +1,20 @@
 (ns kakeibo.fixtures
-  (:require [kakeibo.service :as service]
-            [kakeibo.log :as log]
-            [net.readmarks.compost :as compost])
-  )
+  (:require [kakeibo.log :as log]
+            [kakeibo.system.browser :as browser]
+            [kakeibo.system.server :as server]
+            [net.readmarks.compost :as compost]))
 
-(def env
-  {:server {:port  8080
-            :join? false}})
-
-(defn system [e]
-  (->> e (merge-with merge service/env) service/system))
+(def system
+  {:server  (server/component  {:port 8080
+                                :join? false})
+   :browser (browser/component {:browser :firefox
+                                :host "firefox"
+                                :port 4444})})
 
 (def ^:dynamic *system*)
 
 (defn with-system [f]
-  (binding [*system* (-> env system compost/start)]
+  (binding [*system* (compost/start system)]
     (try
      (f)
      (finally

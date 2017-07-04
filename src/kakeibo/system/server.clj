@@ -5,7 +5,7 @@
 (def routes
   #{["/" :get (fn [_] {:status 200, :body "Hello, Kakeibo!"}) :route-name :hello]})
 
-(defn options [{:keys [join? port] :or {join? true port 80}}]
+(defn options [{:keys [join? port]}]
   #::http{:type   :jetty
           :port   port
           :join?  join?

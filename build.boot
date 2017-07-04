@@ -11,11 +11,15 @@
                             [io.pedestal/pedestal.service   "0.5.2"]
                             [net.readmarks/compost          "0.2.0"]
 
-                            [adzerk/boot-test      "1.2.0"           :scope "test"]
-                            [cider/cider-nrepl     "0.15.0-SNAPSHOT" :scope "test"]
-                            [codebeige/boot-reset  "0.1.3"           :scope "test"]
-                            [metosin/boot-alt-test "0.3.2"           :scope "test"]
-                            [samestep/boot-refresh "0.1.0"           :scope "test"]]
+                            [adzerk/boot-test                               "1.2.0"           :scope "test"]
+                            [cider/cider-nrepl                              "0.15.0-SNAPSHOT" :scope "test"]
+                            [clj-webdriver                                  "0.7.2"           :scope "test"]
+                            [codebeige/boot-reset                           "0.1.3"           :scope "test"]
+                            [metosin/boot-alt-test                          "0.3.2"           :scope "test"]
+                            [org.seleniumhq.selenium/selenium-java          "3.4.0"           :scope "test"]
+                            [org.seleniumhq.selenium/selenium-remote-driver "3.4.0"           :scope "test"]
+                            [org.seleniumhq.selenium/selenium-server        "3.4.0"           :scope "test"]
+                            [samestep/boot-refresh                          "0.1.0"           :scope "test"]]
           :exclusions     '[org.clojure/clojure
                             org.clojure/core.async])
 

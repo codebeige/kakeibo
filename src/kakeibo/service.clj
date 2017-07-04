@@ -3,12 +3,8 @@
             [net.readmarks.compost :as compost])
   (:gen-class))
 
-(def env
-  {:server {:port  80
-            :join? true}})
-
-(defn system [{:keys [server]}]
-  {:server (server/component server)})
+(def system
+  {:server (server/component {:port 80 :join? true})})
 
 (defn -main []
-  (-> env system compost/start))
+  (compost/start system))
