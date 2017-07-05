@@ -1,6 +1,6 @@
 (ns kakeibo.log
-  (:import [org.slf4j LoggerFactory]
-           [ch.qos.logback.classic Logger Level]))
+  (:import [ch.qos.logback.classic Logger Level]
+           [org.slf4j LoggerFactory]))
 
 (def levels
   {:all   Level/ALL
