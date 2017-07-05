@@ -8,6 +8,8 @@ services:
       - "7888:7888"
       - "3000:3000"
     command: dev
+    depends_on:
+      - firefox
 
   firefox:
     image: selenium/standalone-firefox-debug
