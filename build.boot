@@ -15,23 +15,29 @@
                             [cider/cider-nrepl                              "0.15.0-SNAPSHOT" :scope "test"]
                             [clj-webdriver                                  "0.7.2"           :scope "test"]
                             [codebeige/boot-reset                           "0.1.3"           :scope "test"]
+                            [eftest                                         "0.3.1"           :scope "test"]
+                            [io.aviso/pretty                                "0.1.34"          :scope "test"]
                             [metosin/boot-alt-test                          "0.3.2"           :scope "test"]
+                            [mvxcvi/puget                                   "1.0.1"           :scope "test"]
                             [org.seleniumhq.selenium/selenium-java          "3.4.0"           :scope "test"]
                             [org.seleniumhq.selenium/selenium-remote-driver "3.4.0"           :scope "test"]
                             [org.seleniumhq.selenium/selenium-server        "3.4.0"           :scope "test"]
+                            [pjstadig/humane-test-output                    "0.8.2"           :scope "test"]
                             [samestep/boot-refresh                          "0.1.0"           :scope "test"]]
-          :exclusions     '[org.clojure/clojure
+          :exclusions     '[eftest
+                            io.aviso/pretty
+                            mvxcvi/puget
+                            org.clojure/clojure
                             org.clojure/core.async])
 
-(require '[adzerk.boot-test :refer [test] :rename {test boot-test}]
-         '[cider.nrepl :refer [cider-middleware]]
+(require '[cider.nrepl :refer [cider-middleware]]
          '[cider.tasks :refer [add-middleware]]
          '[codebeige.boot-reset :refer [reset]]
-         '[metosin.boot-alt-test :refer [alt-test]]
+         '[metosin.boot-alt-test :refer [alt-test] :rename {alt-test test}]
          '[samestep.boot-refresh :refer [refresh]])
 
 (task-options!
- alt-test {:report 'eftest.report.pretty/report}
+ test     {:report 'eftest.report.pretty/report}
  aot      {:namespace #{'kakeibo.service}}
  jar      {:main 'kakeibo.service
            :file "kakeibo-service.jar"}
@@ -74,15 +80,9 @@
    (reset)
    (refresh)))
 
-(deftask test
-  "Run all rests."
-  []
-  (comp
-   (boot-test)))
-
 (deftask autotest
   "Automatically run related tests on file changes."
   []
   (comp
    (watch)
-   (alt-test)))
+   (test)))
