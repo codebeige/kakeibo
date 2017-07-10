@@ -1,6 +1,6 @@
 (ns kakeibo.e2e.look-at-current-budget-test
   (:require [clojure.test :refer :all]
-            [kakeibo.test :refer :all]
+            [kakeibo.test :refer [pending]]
             [clj-webdriver.taxi :as taxi]
             [kakeibo.fixtures :as fixtures]))
 

@@ -5,7 +5,10 @@
 (defonce current-system nil)
 
 (def system
-  {:server (server/component {:port 3000 :join? false})})
+  {:server (server/component {:port 3000
+                              :join? false
+                              :csp {:script-src "'self' 'unsafe-inline' 'unsafe-eval'"
+                                    :connect-src "ws:"}})})
 
 
 (defn start []

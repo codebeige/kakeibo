@@ -5,8 +5,8 @@ services:
     networks:
       - test
     ports:
-      - "7888:7888"
       - "3000:3000"
+      - "7888-7890:7888-7890"
     command: dev
     depends_on:
       - firefox

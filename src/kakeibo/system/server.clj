@@ -1,15 +1,21 @@
 (ns kakeibo.system.server
   (:require [io.pedestal.http :as http]
-            [io.pedestal.http.route :as route]))
+            [kakeibo.routes :as routes]))
 
-(def routes
-  #{["/" :get (fn [_] {:status 200, :body "Hello, Kakeibo!"}) :route-name :hello]})
+(def csp-defaults
+  {:default-src "'self'"
+   :object-src  "'none'"
+   :script-src  "'self'"})
 
-(defn options [{:keys [join? port]}]
+
+(defn options [{:keys [join? port csp]}]
   #::http{:type   :jetty
           :port   port
           :join?  join?
-          :routes (route/expand-routes routes)})
+          :resource-path "public"
+          :routes routes/expanded
+          :secure-headers {:content-security-policy-settings
+                           (merge csp-defaults csp)}})
 
 (defn component [env]
   {:this  (-> env options http/create-server)
