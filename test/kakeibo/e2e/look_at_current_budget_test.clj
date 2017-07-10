@@ -1,6 +1,6 @@
 (ns kakeibo.e2e.look-at-current-budget-test
   (:require [clojure.test :refer :all]
-            [kakeibo.test :refer [pending]]
+            [kakeibo.test :refer [pending xis]]
             [clj-webdriver.taxi :as taxi]
             [kakeibo.fixtures :as fixtures]))
 
@@ -11,4 +11,4 @@
 (use-fixtures :each fixtures/with-system)
 
 (deftest look-at-current-budget
-  (pending (taxi/exists? ".limit")))
+  (is (= "1.234,56 €" (taxi/text ".limit"))))

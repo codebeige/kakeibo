@@ -7,7 +7,9 @@
 
 (def system
   {:server  (server/component  {:port 8080
-                                :join? false})
+                                :join? false
+                                :csp {:script-src
+                                      "'self' 'unsafe-inline' 'unsafe-eval'"}})
    :browser (browser/component {:browser :firefox
                                 :host "firefox"
                                 :port 4444})})

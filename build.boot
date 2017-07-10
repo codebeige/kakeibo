@@ -12,6 +12,9 @@
                             [io.pedestal/pedestal.service   "0.5.2"]
                             [net.readmarks/compost          "0.2.0"]
 
+                            [re-frame                  "0.9.4"   :scope "test"]
+                            [reagent                   "0.7.0"   :scope "test"]
+
                             [adzerk/boot-cljs                               "2.0.0"           :scope "test"]
                             [adzerk/boot-cljs-repl                          "0.3.3"           :scope "test"]
                             [adzerk/boot-reload                             "0.5.1"           :scope "test"]
@@ -43,13 +46,16 @@
          '[cider.nrepl :refer [cider-middleware]]
          '[cider.tasks :refer [add-middleware]]
          '[codebeige.boot-reset :refer [reset]]
-         '[metosin.boot-alt-test :refer [alt-test] :rename {alt-test test}]
+         '[metosin.boot-alt-test :refer [alt-test]]
          '[samestep.boot-refresh :refer [refresh]])
 
 (task-options!
+ alt-test  {:report 'eftest.report.pretty/report}
  aot       {:namespace #{'kakeibo.service}}
- cljs      {:optimizations :advanced
-            :compiler-options {:output-wrapper true}}
+ cljs      {:optimizations :none
+            :compiler-options {:asset-path "js/app.out"
+                               :preloads '[kakeibo.dev]
+                               :parallel-build true}}
  cljs-repl {:ip "0.0.0.0"
             :port 7889
             :ws-host "localhost"
@@ -69,8 +75,7 @@
  repl      {:bind "0.0.0.0"}
  reset     {:start 'kakeibo.dev/start
             :stop  'kakeibo.dev/stop}
- target    {:dir #{"builds"}}
- test      {:report 'eftest.report.pretty/report})
+ target    {:dir #{"builds"}})
 
 (deftask run
   "Run the project."
@@ -83,7 +88,8 @@
   "Build the project locally as a JAR."
   []
   (comp
-   (cljs)
+   (cljs :optimizations :advanced
+         :compiler-options {:output-wrapper true})
    (aot)
    (pom)
    (uber)
@@ -99,12 +105,16 @@
    (watch)
    (reload)
    (cljs-repl)
-   (cljs :optimizations :none
-         :compiler-options {:asset-path "js/app.out"
-                            :preloads '[kakeibo.dev]
-                            :parallel-build true})
+   (cljs)
    (reset)
    (refresh)))
+
+(deftask test
+  "Run all tests."
+  []
+  (comp
+   (cljs)
+   (alt-test)))
 
 (deftask autotest
   "Automatically run related tests on file changes."
