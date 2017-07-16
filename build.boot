@@ -19,7 +19,6 @@
                             [adzerk/boot-cljs-repl                          "0.3.3"           :scope "test"]
                             [adzerk/boot-reload                             "0.5.1"           :scope "test"]
                             [adzerk/boot-test                               "1.2.0"           :scope "test"]
-                            [cider/cider-nrepl                              "0.15.0-SNAPSHOT" :scope "test"]
                             [clj-webdriver                                  "0.7.2"           :scope "test"]
                             [codebeige/boot-reset                           "0.1.3"           :scope "test"]
                             [com.cemerick/piggieback                        "0.2.1"           :scope "test"]
@@ -41,10 +40,8 @@
                             org.clojure/core.async])
 
 (require '[adzerk.boot-cljs :refer [cljs]]
-         '[adzerk.boot-cljs-repl :refer [cljs-repl]]
+         '[adzerk.boot-cljs-repl :refer [cljs-repl start-repl]]
          '[adzerk.boot-reload :refer [reload]]
-         '[cider.nrepl :refer [cider-middleware]]
-         '[cider.tasks :refer [add-middleware]]
          '[codebeige.boot-reset :refer [reset]]
          '[metosin.boot-alt-test :refer [alt-test]]
          '[samestep.boot-refresh :refer [refresh]])
@@ -101,7 +98,6 @@
   "Start up interactive development environment."
   []
   (comp
-   (add-middleware :middleware cider-middleware)
    (watch)
    (reload)
    (cljs-repl)
