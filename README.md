@@ -39,13 +39,7 @@ docker-compose run --rm boot autotest
 
 ## Deployment
 
-First build an uberjar:
-
-```sh
-docker-compose run --rm boot build
-```
-
-Then rebuild and restart the production system:
+Build and run uberjar:
 
 ```sh
 docker-compose -f deploy/docker-compose.yml up --build --force-recreate

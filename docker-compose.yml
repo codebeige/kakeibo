@@ -1,14 +1,28 @@
-version: "3.1"
+version: "3.3"
 
 services:
   boot:
-    image: kakeibo:boot
     build: ./
     volumes:
       - m2:/root/.m2/
       - ./:/usr/local/kakeibo/
+    networks:
+      - test
     ports:
-      - 80
+      - "3000:3000"
+      - "7888-7890:7888-7890"
+    depends_on:
+      - firefox
+
+  firefox:
+    image: selenium/standalone-firefox-debug
+    networks:
+      - test
+    ports:
+      - "5900:5900"
 
 volumes:
   m2:
+
+networks:
+  test:
